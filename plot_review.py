@@ -11,7 +11,7 @@ class Plot_Review():
 
 		self.review = {}
 		for problem_var in self.review_manager.problem_vars:
-	
+
 			self.review[problem_var + "_tick"] = ""
 			self.review[problem_var + "_text"] = ""
 
@@ -20,21 +20,19 @@ class Plot_Review():
 		for problem_var in self.review_manager.problem_vars:
 
 			checkbox = current_input[problem_var + "_tick"]
-			checked = str(checkbox.isChecked())
-			
+			checked = str(checkbox.isChecked()).strip()
+
 			input_field = current_input[problem_var + "_text"]
-			text = input_field.displayText()
+			text = str(input_field.displayText()).strip()
 
 			self.review[problem_var + "_tick"] = checked
 			self.review[problem_var + "_text"] = text
 
 	def csv_output(self):
-	
+
 		output = self.filename_sans_path
 
 		for problem_var in self.review_manager.problem_vars:
-	
-
 
 			output += "," + self.review[problem_var + "_tick"] + "," + self.review[problem_var + "_text"]
 

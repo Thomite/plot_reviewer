@@ -3,7 +3,7 @@ import sys
 import glob
 
 class Review_Manager():
-	
+
 	def __init__(self, folder):
 
 		self.folder = folder
@@ -12,31 +12,43 @@ class Review_Manager():
 		self.load_config()
 
 		self.get_files()
-	
+
 		# If there is not a plot review file started
 		if len(glob.glob(folder + "/" + self.output_filename)) == 0:
 		#if 1==1:
-			
+
 			self.initialise_blank_reviews()
 			self.update_output()
-
-			
 			self.current_index = 0
 
 		else:
-		
+
 			self.load_output(folder + "/" + self.output_filename)
-				
-			self.current_index = 0
+			self.current_index = self.next_unreviewed_index()
 
 		self.build_lookup()
 
 	def get_current_review(self):
+
 		return self.get_review(self.current_index)
 
 	def get_review(self, index):
 
 		return self.reviews[index]
+
+	def next_unreviewed_index(self):
+
+		for index,r in enumerate(self.reviews):
+			reviewed = False
+			for k,v in r.review.items():
+				if "_tick" in k:
+					if v == "True" or v == "False":
+						reviewed = True
+
+
+			if reviewed == False:
+				return index
+		return 0
 
 	def next_review(self):
 
@@ -69,7 +81,7 @@ class Review_Manager():
 			self.review_lookup[r.filename] = r
 
 
-	
+
 	def load_config(self):
 
 		config_file = open(self.folder + "/plot_problems.csv", "r")
@@ -94,8 +106,8 @@ class Review_Manager():
 
 			vals = line.split(",")
 			print vals
-			review = plot_review.Plot_Review(vals[0], self)
-			
+			review = plot_review.Plot_Review(self.folder + "/" + vals[0], self)
+
 			for v,h in zip(vals[1:], variables[1:]):
 				review.review[h] = v
 			self.reviews.append(review)
@@ -105,7 +117,7 @@ class Review_Manager():
 		print variables
 
 	def write_output(self, output_filename):
-		
+
 		output_file = open(output_filename, "w")
 
 		output_file.write("filename")
@@ -121,7 +133,7 @@ class Review_Manager():
 	def update_output(self):
 
 		self.write_output(self.folder + "/" + self.output_filename)
-	
+
 	def update_review(self, review):
 
 		self.review_lookup[review.filename] = review

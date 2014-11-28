@@ -15,22 +15,13 @@ pampro_lightgrey = "#FAFAFA"
 pampro_background = "#FFFFFF"
 
 all_style = """
-QWidget { background-color: """+pampro_background+"""}
-QMainWindow { background-color: """+pampro_background+"""}
-
-QMenuBar {font-size:14px; background-color:"""+pampro_background+"""; border-bottom:1px solid #000000;}
-QMenuBar::item { padding-right:50px; padding-left:5px; background: transparent; }
-QMenuBar::item::selected {background-color: """+pampro_red+"""; }
-
-QLineEdit {padding:2px; border:1px solid"""+pampro_darkgrey+"""; height:50px;}
-QPushButton {padding:5px; border:1px solid"""+pampro_darkgrey+"""; height:50px;}
-QSpinBox {padding:5px; border:1px solid"""+pampro_darkgrey+"""; height:50px;}
+QWidget { background-color: """+pampro_background+"""; font-size:12px; font-weight:Bold;}
 """
 
 import review_manager, plot_review
 
 image_width = 1240
-image_height = 758
+image_height = 760
 
 manager = review_manager.Review_Manager(folder)
 
@@ -38,7 +29,6 @@ class GUI(QtGui.QMainWindow):
 
 	def __init__(self):
 
-		self.image_index = 0
 		self.current_review = manager.get_current_review()
 
 		# Prepare GUI
@@ -85,7 +75,7 @@ class GUI(QtGui.QMainWindow):
 		self.image_widget_grid.addWidget(self.image, 2, 1, 1, 4)
 		self.image_widget_grid.addWidget(self.image_label, 1, 1, 1, 4)
 		self.image_widget.setLayout(self.image_widget_grid)
-		
+
 		self.image_widget.setStyleSheet(all_style)
 		self.image_widget.show()
 
@@ -97,7 +87,7 @@ class GUI(QtGui.QMainWindow):
 		self.input_display = QtGui.QWidget(self)
 		self.grid = QtGui.QGridLayout()
 		self.grid.setSpacing(10)
-		
+
 		self.current_input = {}
 		self.input_holder = QtGui.QWidget()
 		self.input_holder_grid = QtGui.QGridLayout()
@@ -119,7 +109,7 @@ class GUI(QtGui.QMainWindow):
 			self.input_holder_grid.addWidget(input_field, 2+i, 3, 1, 1)
 		# -- -- -- -- -- --
 		self.input_holder.setLayout(self.input_holder_grid)
-		
+
 
 
 		# Navigation buttons
@@ -149,28 +139,28 @@ class GUI(QtGui.QMainWindow):
 		self.input_display.resize(self.input_display.sizeHint())
 
 		return self.input_display
-	
+
 
 	def set_image(self, filename):
 		"""Loads the image specified by filename and displays it"""
 
 		print filename
-		pm = QtGui.QPixmap(folder +"/" +filename)
-		blah = pm.load(folder +"/" +filename)
+		pm = QtGui.QPixmap(filename)
+		blah = pm.load(filename)
 		size = pm.size()
-		
+
 		pm = pm.scaled(image_width, image_height)
 		self.image.setPixmap(pm)
 
-		
+
 
 	def load_review(self, review):
 
 		self.current_review = review
 
 		self.set_image(review.filename)
-		self.image_label.setText(review.filename_sans_path) 
-		self.image_label_input.setText(review.filename_sans_path) 
+		self.image_label.setText(review.filename_sans_path)
+		self.image_label_input.setText(review.filename_sans_path)
 
 		for k,v in review.review.items():
 
@@ -182,7 +172,7 @@ class GUI(QtGui.QMainWindow):
 
 			elif "_text" in k:
 				widget.setText(v)
-			
+
 
 
 
@@ -191,7 +181,7 @@ class GUI(QtGui.QMainWindow):
 
 		self.commit_result()
 		self.load_review(manager.next_review())
-		
+
 
 	def prev(self):
 		"""Advances to the previous image in the folder and displays it"""
@@ -208,7 +198,7 @@ class GUI(QtGui.QMainWindow):
 
 			checkbox = self.current_input[prob_var + "_tick"]
 			checked = checkbox.isChecked()
-			
+
 			input_field = self.current_input[prob_var + "_text"]
 			text = input_field.displayText()
 
@@ -217,7 +207,7 @@ class GUI(QtGui.QMainWindow):
 
 		self.current_review.absorb_changes(self.current_input)
 		manager.update_output()
-		
+
 
 if __name__ == '__main__':
 	app = QtGui.QApplication(sys.argv)
