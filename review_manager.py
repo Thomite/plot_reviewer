@@ -98,14 +98,14 @@ class Review_Manager():
 
 		variables = header.split(",")
 		variables = [v.strip() for v in variables]
-		print variables
+		#print variables
 
 		self.reviews = []
 
 		for line in output_file:
 
 			vals = line.split(",")
-			print vals
+			#print vals
 			review = plot_review.Plot_Review(self.folder + "/" + vals[0], self)
 
 			for v,h in zip(vals[1:], variables[1:]):

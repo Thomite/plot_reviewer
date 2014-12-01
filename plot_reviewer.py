@@ -3,7 +3,29 @@ from PyQt4 import QtGui, QtCore
 import sys
 import glob
 
-folder = sys.argv[1]
+inputs = len(sys.argv)
+
+if inputs < 2:
+
+	"""
+	app = QtGui.QApplication(sys.argv)
+	temp_widget = QtGui.QWidget()
+	temp_widget_grid = QtGui.QGridLayout()
+	temp_label = QtGui.QLabel("Test", app)
+	temp_label.setAlignment(QtCore.Qt.AlignCenter)
+
+	#self.image_widget_grid.addWidget(self.image, 2, 1, 1, 4)
+
+	temp_widget_grid.addWidget(temp_label, 1, 1, 1, 1)
+	temp_widget.setLayout(temp_widget_grid)
+
+	temp_widget.setStyleSheet(all_style)
+	temp_widget.show()
+	"""
+	print("Requires a folder")
+	sys.exit()
+else:
+	folder = sys.argv[1]
 
 print folder
 
