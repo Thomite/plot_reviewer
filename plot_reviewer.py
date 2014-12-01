@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 
 import sys
 import glob
+import time
 
 inputs = len(sys.argv)
 
@@ -171,7 +172,7 @@ class GUI(QtGui.QMainWindow):
 		blah = pm.load(filename)
 		size = pm.size()
 
-		pm = pm.scaled(image_width, image_height)
+		#pm = pm.scaled(image_width, image_height)
 		self.image.setPixmap(pm)
 
 
@@ -234,4 +235,9 @@ class GUI(QtGui.QMainWindow):
 if __name__ == '__main__':
 	app = QtGui.QApplication(sys.argv)
 	m = GUI()
-	sys.exit(app.exec_())
+	
+	print("Launching GUI")
+	app.exec_()
+
+	print("Done!")
+	time.sleep(5)
