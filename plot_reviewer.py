@@ -28,7 +28,7 @@ if inputs < 2:
 else:
 	folder = sys.argv[1]
 
-print folder
+print(folder)
 
 pampro_red = "#FA1010"
 pampro_green = "#10FA10"
@@ -167,7 +167,7 @@ class GUI(QtGui.QMainWindow):
 	def set_image(self, filename):
 		"""Loads the image specified by filename and displays it"""
 
-		print filename
+		print(filename)
 		pm = QtGui.QPixmap(filename)
 		blah = pm.load(filename)
 		size = pm.size()
@@ -236,8 +236,8 @@ if __name__ == '__main__':
 	app = QtGui.QApplication(sys.argv)
 	m = GUI()
 	
-	print("Launching GUI")
+	#print("Launching GUI")
 	app.exec_()
 
-	print("Done!")
-	time.sleep(5)
+	#print("Done!")
+	#time.sleep(5)

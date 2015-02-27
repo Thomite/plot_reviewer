@@ -67,7 +67,7 @@ class Review_Manager():
 	def get_files(self):
 
 		self.files = glob.glob(self.folder + "/*.png")
-
+		self.files.sort()
 
 	def initialise_blank_reviews(self):
 
@@ -114,7 +114,7 @@ class Review_Manager():
 
 		output_file.close()
 
-		print variables
+		print(variables)
 
 	def write_output(self, output_filename):
 
